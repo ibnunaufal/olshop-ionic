@@ -1,0 +1,33 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+  <ion-grid>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          Login Sebagai Admin
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>Email</ion-label>
+          <ion-input [(ngModel)]="name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Password</ion-label>
+          <ion-input [(ngModel)]="password"></ion-input>
+        </ion-item>
+      </ion-card-content>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="full" (click)="login()">Login</ion-button>
+          <ion-button expand="full" (click)="logout()">Batal</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-grid>
+</ion-content>

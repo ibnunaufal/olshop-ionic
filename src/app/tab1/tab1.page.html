@@ -1,17 +1,73 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 1
+    <ion-title (click)="clearCart()">
+      Home
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <ion-row *ngIf="!loaded">
+    <ion-col size="6" *ngFor="let prod of [0,1,2,3]">
+      <ion-card>
+        <!-- <img [src]="getImgContent(prod.image)" alt=""> -->
+        <ion-skeleton-text style="height: 175px;" animated></ion-skeleton-text>
+        <ion-card-header style="padding: 0px 16px 0px 16px;">
+          <p><ion-skeleton-text animated></ion-skeleton-text></p>
+          <p><ion-skeleton-text animated></ion-skeleton-text></p>
+        </ion-card-header>
+        <ion-card-content style="text-align: center;">
+          <ion-skeleton-text animated></ion-skeleton-text>
+          <!-- <ion-button *ngIf="!check(prod.id)" style="width: 100%;" (click)="addToCart(prod)">+ Keranjang</ion-button>
+          <ion-button *ngIf="check(prod.id)" (click)="remove(prod.id)">
+            -
+          </ion-button>
+          <ion-button *ngIf="check(prod.id)" >
+            {{ count(prod.id) }}
+          </ion-button>
+          <ion-button *ngIf="check(prod.id)" (click)="add(prod.id)">
+            +
+          </ion-button> -->
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="loaded">
+    <ion-col size="6" *ngFor="let prod of products">
+      <ion-card>
+        <img class="imgg" [src]="getImgContent(prod.image)" alt="">
+        <ion-card-header style="padding: 0px 16px 0px 16px;">
+          <p>{{ prod.name }}</p>
+          <p>{{ prod.price| currency:'Rp ': 'symbol' : '1.0-0' }}</p>
+        </ion-card-header>
+        <ion-card-content style="text-align: center;">
+          <ion-button *ngIf="!check(prod.id)" style="width: 100%;" (click)="addToCart(prod)">+ Keranjang</ion-button>
+          <ion-button *ngIf="check(prod.id)" (click)="remove(prod.id)">
+            -
+          </ion-button>
+          <ion-button *ngIf="check(prod.id)" >
+            {{ count(prod.id) }}
+          </ion-button>
+          <ion-button *ngIf="check(prod.id)" (click)="add(prod.id)">
+            +
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <!-- <ion-list>
+    <ion-item *ngFor="let prod of products" lines="full">
+      <ion-label>
+        <strong>{{prod.name}}</strong>
+        <p>{{prod.description}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list> -->
+  <!-- <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Tab 1</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <app-explore-container name="Tab 1 page"></app-explore-container> -->
 </ion-content>

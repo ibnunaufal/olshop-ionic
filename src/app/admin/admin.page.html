@@ -1,0 +1,60 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Halaman Admin
+    </ion-title>
+    <ion-icon (click)="logout()" name="home-outline" style="zoom: 1.7; margin-right: 6px;" slot="end"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="loading">
+    <ion-item *ngFor="let c of [].constructor(4)">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <ion-skeleton-text animated></ion-skeleton-text>
+        <p><ion-skeleton-text animated></ion-skeleton-text></p>
+      </ion-label>
+      <div slot="end">
+        <ion-button>
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button color="danger">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-item>
+  </div>
+
+  <div *ngIf="!loading">
+    <ion-item *ngFor="let c of products">
+      <ion-avatar slot="start">
+        <img [src]="getImgContent(c.image)">
+      </ion-avatar>
+      <ion-label>
+        {{ c.name }}
+        <p>{{ c.price| currency:'Rp ': 'symbol' : '1.0-0' }}</p>
+      </ion-label>
+      <div slot="end">
+        <ion-button (click)="addEdit('edit', c.id)">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button color="danger" (click)="del(c.id)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-item>
+  </div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="addEdit('add', 'add')" data-desc="Tambah Produk"><ion-icon name="bag-outline"></ion-icon></ion-fab-button>
+
+      <ion-fab-button (click)="addEdit('add', 'add')" data-desc="Tambah Kategori"><ion-icon name="filter-outline"></ion-icon></ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

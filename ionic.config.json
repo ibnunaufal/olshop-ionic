@@ -1,5 +1,7 @@
 {
   "name": "mirashop",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

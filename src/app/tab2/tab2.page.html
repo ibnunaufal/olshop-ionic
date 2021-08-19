@@ -1,17 +1,56 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      Keranjang
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <ion-item *ngFor="let c of cart">
+    <ion-avatar slot="start">
+      <img [src]="getImgContent(c.image)">
+    </ion-avatar>
+    <ion-label>
+      {{ c.name }}
+      <p>{{ c.price| currency:'Rp ': 'symbol' : '1.0-0' }}</p>
+    </ion-label>
+    <div slot="end">
+      <ion-button (click)="remove(c.id)">
+        -
+      </ion-button>
+      <ion-button>
+        {{ count(c.id) }}
+      </ion-button>
+      <ion-button (click)="add(c.id)">
+        +
+      </ion-button>
+
+    </div>
+  </ion-item>
+  <!-- <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Tab 2</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <app-explore-container name="Tab 2 page"></app-explore-container> -->
 </ion-content>
+
+<ion-footer *ngIf="cart.length > 0">
+  <ion-row style="color: black; background: #fff;">
+    <ion-col>
+      <p>Total:</p>
+      <p> {{ getTotal('harga')| currency:'Rp ': 'symbol' : '1.0-0' }} </p>
+    </ion-col>
+    <ion-col>
+      <p>Jumlah:</p>
+      <p> {{ getTotal('item') }} Pcs</p>
+    </ion-col>
+    <ion-col>
+      <ion-button (click)="checkout()">
+        Checkout
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

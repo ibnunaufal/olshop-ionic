@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>addedit</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <form [formGroup]="addEdit" (ngSubmit)="onSubmit()">
+      <ion-card>
+        <ion-row style="text-align: center;">
+          <ion-col (click)="presentActionSheet()">
+            <img [src]="getImgContent(img)" *ngIf="img" style="max-width: 250px; max-height: 250px;object-fit: cover;">
+            <img src="../../assets/null.png" *ngIf="!img" alt="" style="max-width: 250px;max-height: 250px;">
+          </ion-col>
+        </ion-row>
+        <ion-card-content>
+          <ion-item>
+            <ion-label position="fixed">Nama</ion-label>
+            <ion-input formControlName="name"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="fixed">Deskripsi</ion-label>
+            <ion-textarea formControlName="description"></ion-textarea>
+          </ion-item>
+          <ion-item>
+            <ion-label position="fixed">Harga</ion-label>
+            <ion-input value='number' formControlName="price"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="fixed">Kategori</ion-label>
+            <ion-input formControlName="kategori"></ion-input>
+          </ion-item>
+        </ion-card-content>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="full" type="submit" *ngIf="!isEdit">Tambah</ion-button>
+            <ion-button expand="full" type="submit" *ngIf="isEdit">Simpan</ion-button>
+            <ion-button expand="full" color="danger" (click)="dismiss()">Batal</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </form>
+  </ion-grid>
+</ion-content>

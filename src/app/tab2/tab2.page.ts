@@ -3,6 +3,7 @@ import { CrudService } from './../services/crud.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Storage } from '@ionic/storage';
 import { CurrencyPipe, formatCurrency } from '@angular/common';
+import { AlertController } from '@ionic/angular';
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -19,6 +20,7 @@ export class Tab2Page {
     private crud: CrudService,
     private domSanitizer: DomSanitizer,
     private storage: Storage,
+    private alertController: AlertController,
     private currencyPipe: CurrencyPipe
   ) {
     this.getAwal();
@@ -134,7 +136,8 @@ export class Tab2Page {
     // formatCurrency(price,'ID',"Rp. ","IDR","1.0-0")
   }
 
-  checkout(){
+  checkout(note){
+    let notes = String(note)
     let str;
     let brg = '';
     this.storage.get("profile").then((alamat) => {
@@ -146,18 +149,54 @@ export class Tab2Page {
         }
         str += brg
         console.log(str)
-        str += "Total%20"+this.getCurrency(this.getTotal('harga'))+"%20("+this.getTotal('item')+")"
+        str += "%0ATotal%20"+this.getCurrency(this.getTotal('harga'))+"%20("+this.getTotal('item')+"pcs)"
         str += "%0A%0Adengan%20tujuan:"
         console.log(str)
         str += "%0ANama:%20"+ alamat.name
         str += "%0AAlamat:%20"+ alamat.address
+        str += "%0A%0ANote:%20" + notes.replace(' ','%20')
         console.log(str)
-        this.getCurrency(20000);
+        // this.presentAlertPrompt();
+        // this.getCurrency(20000);
         var  element = document.createElement('a') as HTMLElement;
           element.setAttribute('href', str);
           element.setAttribute('style', 'display:none;');
           element.click();
       })
     })
+  }
+
+  async presentAlertPrompt() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Catatan!',
+      mode: "ios",
+      inputs: [
+        {
+          name: 'paragraph',
+          id: 'paragraph',
+          type: 'textarea',
+          placeholder: 'Masukkan Catatan'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: (data) => {
+            console.log('Confirm Ok' + data.paragraph);
+            this.checkout(data.paragraph);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }

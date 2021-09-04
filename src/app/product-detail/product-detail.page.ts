@@ -103,7 +103,7 @@ export class ProductDetailPage implements OnInit {
         if(this.cart[x].id == id){
           temp = x;
         }
-      }
+      } 
       if(this.cart[temp].qty == 1){
         this.cart.splice(temp, 1);
       }else{

@@ -35,7 +35,7 @@
   <ion-row *ngIf="loaded">
     <ion-col size="6" *ngFor="let prod of products">
       <ion-card>
-        <img class="imgg" [src]="getImgContent(prod.image)" alt="">
+        <img class="imgg" [src]="getImgContent(prod.image)" alt="" (click)="openDetail(prod.id)">
         <ion-card-header style="padding: 0px 16px 0px 16px;">
           <p>{{ prod.name }}</p>
           <p>{{ prod.price| currency:'Rp ': 'symbol' : '1.0-0' }}</p>

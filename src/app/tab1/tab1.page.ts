@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CrudService } from './../services/crud.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Storage } from '@ionic/storage';
+import { ModalController } from '@ionic/angular';
+import { ProductDetailPage } from '../product-detail/product-detail.page';
+import { LoadingService } from '../loading.service';
 
 export class product {
   $key: string;
@@ -25,6 +28,8 @@ export class Tab1Page {
   constructor(
     private crud: CrudService,
     private domSanitizer: DomSanitizer,
+    private modalController: ModalController,
+    private loading: LoadingService,
     private storage: Storage
   ) {
 
@@ -133,6 +138,35 @@ export class Tab1Page {
       }
     }
     return temp
+  }
+
+  getDetail(id){
+    this.crud.getProduct(id).subscribe(async(res:any) => { //getTasks().subscribe((res) => {
+      // this.addEdit = this.formBuilder.group({
+      //   title: [res['title']],
+      //   name: [res['name']],
+      //   description: [res['description']],
+      //   price: [res['price']],
+      //   image: [res['image']],
+      //   kategori: [res['kategori']]
+      // })
+      // this.img = [res['image']];
+      // console.log(res);
+      // return res
+      this.openDetail(res)
+    });
+  }
+
+  async openDetail(id) {
+    // let x = await this.getDetail(id);
+    // console.log(x)
+    const modal = await this.modalController.create({
+    component: ProductDetailPage,
+    componentProps: { data: id }
+    });
+  
+    await modal.present();
+  
   }
 
   count(id){

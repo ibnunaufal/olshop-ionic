@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>product-detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <img class="imgg" [src]="getImgContent(data.image)" alt="" (click)="openDetail(data.id)">
+    <ion-card-header style="padding: 0px 16px 0px 16px;">
+      <p>{{ data.name }}</p>
+      <p>{{ data.price| currency:'Rp ': 'symbol' : '1.0-0' }}</p>
+      <p>{{ data.description }}</p>
+    </ion-card-header>
+    <ion-card-content style="text-align: center;">
+      <ion-button *ngIf="!check(data.id)" style="width: 100%;" (click)="addToCart(prod)">+ Keranjang</ion-button>
+      <ion-button *ngIf="check(data.id)" (click)="remove(data.id)">
+        -
+      </ion-button>
+      <ion-button *ngIf="check(data.id)" >
+        {{ count(data.id) }}
+      </ion-button>
+      <ion-button *ngIf="check(data.id)" (click)="add(data.id)">
+        +
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
